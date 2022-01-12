@@ -8,6 +8,7 @@ package com.company;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -34,8 +35,9 @@ public class Main {
             {" "," "," "," "," "," "," "," "," "," "}};
     private static int turn = 2;
     private static String player = "";
-    private static int player1Ships = 0;
-    private static int player2Ships = 10;
+    private static int player1Ships = 8;
+    private static int player2Ships = 0;
+    static Random generateRandon = new Random();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
@@ -81,20 +83,32 @@ public class Main {
         } else {
             player = "Jogador 2";
             System.out.println("Vez do "+player);
-            System.out.println("Digite a linha: ");
-            coordinates[0] = scanner.nextInt();
-            System.out.println("Digite a coluna: ");
-            coordinates[1] = scanner.nextInt();
-            turn ++;
+            setPosition(coordinates);
+            if (player2Ships >= 10){
+                showTable();
+                System.out.println("-------------------------------------");
+                turn ++;
+
+            }
         }
     }
 
     public static void setPosition(int[] coordinates){
-        if (tablePlayer1[coordinates[0]][coordinates[1]] == " "){
-            tablePlayer1[coordinates[0]][coordinates[1]] = " N ";
-            player1Ships++;
+        if(turn%2==0){
+            if (tablePlayer1[coordinates[0]][coordinates[1]] == " "){
+                tablePlayer1[coordinates[0]][coordinates[1]] = "N";
+                player1Ships++;
+            }else {
+                System.out.println("Esta posição esta ocupada");
+            }
+
         }else {
-            System.out.println("Esta posição esta ocupada");
+            int a = generateRandon.nextInt(9);
+            int b = generateRandon.nextInt(9);
+            System.out.println(a);
+            System.out.println(b);
+            tablePlayer2[a][b] = "N";
+            player2Ships++;
         }
     }
 
