@@ -77,7 +77,7 @@ public class Main {
             setPosition(coordinates);
             if (player1Ships >= 10){
                 showTable();
-                System.out.println("-------------------------------------");
+                System.out.println("------------------------------------");
                 turn ++;
             }
         } else {
@@ -86,7 +86,7 @@ public class Main {
             setPosition(coordinates);
             if (player2Ships >= 10){
                 showTable();
-                System.out.println("-------------------------------------");
+                System.out.println("------------------------------------");
                 turn ++;
 
             }
