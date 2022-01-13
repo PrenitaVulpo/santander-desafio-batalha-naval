@@ -13,7 +13,7 @@ import java.util.Scanner;
 
 public class Main {
 
-    private static String[][] tablePlayer1 = {{" "," "," "," "," "," "," "," "," "," "},
+    private static String[][] tablePlayer1 = {
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
@@ -22,8 +22,10 @@ public class Main {
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "," "}};
-    private static String[][] tablePlayer2 = {{" "," "," "," "," "," "," "," "," "," "},
+            {" "," "," "," "," "," "," "," "," "," "},
+            {" "," "," "," "," "," "," "," "," "," "}
+    };
+    private static String[][] tablePlayer2 = {
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
@@ -32,7 +34,9 @@ public class Main {
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
             {" "," "," "," "," "," "," "," "," "," "},
-            {" "," "," "," "," "," "," "," "," "," "}};
+            {" "," "," "," "," "," "," "," "," "," "},
+            {" "," "," "," "," "," "," "," "," "," "}
+    };
     private static int turn = 2;
     private static String player = "";
     private static int player1Ships = 8;
@@ -42,13 +46,15 @@ public class Main {
 
     public static void main(String[] args) {
 
+        //Posicionamento das peças no tabuleiro
+        while (player1Ships <= 10 && player2Ships <= 10) {
 
-        while (Objects.equals(checkWinner(), "")) {
+            placeShips();
             showTable();
-            turnAssistant();
+
         }
-        showTable();
-        System.out.println("O vencedor é "+checkWinner());
+
+        startCombat();
 
     }
 
@@ -59,13 +65,13 @@ public class Main {
                 System.out.println(Arrays.toString(strings));
             }
         } else {
-            for (String[] strings : tablePlayer2) {
+            /*for (String[] strings : tablePlayer2) {
                 System.out.println(Arrays.toString(strings));
-            }
+            }*/
         }
     }
 
-    private static void turnAssistant() {
+    private static void placeShips() {
         int coordinates[] = new int[2];
         if (turn%2==0){
             player = "Jogador 1";
@@ -75,8 +81,8 @@ public class Main {
             System.out.println("Digite a coluna: ");
             coordinates[1] = scanner.nextInt();
             setPosition(coordinates);
-            if (player1Ships >= 10){
-                showTable();
+            if (player1Ships <= 10){
+                //showTable();
                 System.out.println("------------------------------------");
                 turn ++;
             }
@@ -112,15 +118,69 @@ public class Main {
         }
     }
 
+    public static void shoot(int[] coordinates) {
+
+        if(turn%2==0){
+
+            //Jogada do BOT
+
+        } else {
+
+            if (tablePlayer2[coordinates[0]][coordinates[1]] == " "){
+                //Tiro na agua
+                tablePlayer2[coordinates[0]][coordinates[1]] = "-";
+                System.out.println("Tiro na agua!");
+            }else if (tablePlayer2[coordinates[0]][coordinates[1]] == "-"  || tablePlayer2[coordinates[0]][coordinates[1]] == "*"){
+                //Tiro em local onde já houve tiro
+                System.out.println("Você já realizou um disparo nesta posição");
+            } else if (tablePlayer2[coordinates[0]][coordinates[1]] == "N"){
+                //Tiro certeiro
+                tablePlayer2[coordinates[0]][coordinates[1]] = "*";
+                System.out.println("Tiro certeiro!");
+            }
+
+        }
+
+    }
+
+    public static void startCombat() {
+
+        System.out.println("O combate começou!");
+
+        while (Objects.equals(checkWinner(), "")) {
+
+            if(turn%2==0){
+                System.out.println("Jogada do Bot");
+
+                turn ++;
+            } else {
+                System.out.println("Jogada do Player");
+
+                int coordinates[] = new int[2];
+
+                System.out.println("Digite a linha: ");
+                coordinates[0] = scanner.nextInt();
+                System.out.println("Digite a coluna: ");
+                coordinates[1] = scanner.nextInt();
+
+                shoot(coordinates);
+
+            }
+
+        }
+
+        System.out.println("O vencedor é "+checkWinner());
+
+    }
 
     private static String checkWinner(){
-        if (player1Ships == 0 && turn > 4) {
+        /*if (player1Ships == 0 && turn > 4) {
             return "Jogador 2";
         }
 
         if (player2Ships == 0 && turn > 4) {
             return "Jogador 1";
-        }
+        }*/
 
         return "";
     }
