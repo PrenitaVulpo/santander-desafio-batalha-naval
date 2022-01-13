@@ -52,7 +52,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("|                       Bem vindo ao Batalha Naval ☠️                    |");
+        System.out.println("|                       Bem vindo a Batalha Naval ☠️                     |");
         System.out.println("----------------------------------------------------------------------------");
         if (turn == 2){
             showTable();
