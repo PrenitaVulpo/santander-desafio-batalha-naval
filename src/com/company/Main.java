@@ -1,11 +1,5 @@
 package com.company;
 
-//A fazer
-
-//Função para distribuir os submarinos nas tabelas de cada jogador
-//Função de entrada de cada jogador
-//Exibir o mapa  de tiros além do mapa próprio dos submarinos do jogador
-
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
@@ -41,6 +35,7 @@ public class Main {
     private static String player = "";
     private static int player1Ships = 0;
     private static int player2Ships = 0;
+    private static String playerName = "";
     static Random generateRandon = new Random();
     private static Scanner scanner = new Scanner(System.in);
 
@@ -51,6 +46,9 @@ public class Main {
         System.out.println("----------------------------------");
 
         //inserir scanner para nome do usuario
+
+        System.out.println("Qual é o seu nome: ");
+        playerName = scanner.nextLine();
 
         startGame();
 
@@ -64,7 +62,6 @@ public class Main {
         while (player1Ships <= 10 && player2Ships <= 10) {
 
             placeShips();
-            //showTable();
 
             if (player1Ships == 10 && player2Ships == 10) {
                 break;
@@ -94,8 +91,7 @@ public class Main {
 
         int coordinates[] = new int[2];
         if (turn%2==0){
-            player = "Jogador 1";
-            System.out.println("Vez do "+player);
+            System.out.println("Vez de "+playerName);
             System.out.println("Digite a linha: ");
             coordinates[0] = scanner.nextInt();
             System.out.println("Digite a coluna: ");
@@ -108,8 +104,7 @@ public class Main {
                 turn ++;
             }
         } else {
-            player = "Jogador 2";
-            System.out.println("Vez do "+player);
+            System.out.println("Vez do Bot");
             setPosition(coordinates);
             showTable();
             if (player2Ships == 10){
@@ -185,7 +180,7 @@ public class Main {
         while (Objects.equals(checkWinner(), "")) {
 
             if(turn%2==0){
-                System.out.println("Jogada do Player");
+                System.out.println("Jogada de " + playerName);
 
                 showTable();
 
@@ -241,7 +236,7 @@ public class Main {
         }
 
         if (player2Ships == 0 && turn > 4) {
-            return "Jogador 1";
+            return playerName;
         }
 
         return "";
