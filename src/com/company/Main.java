@@ -50,8 +50,9 @@ public class Main {
         while (player1Ships <= 10 && player2Ships <= 10) {
 
             placeShips();
-            showTable();
-            System.out.println("turno -> " + turn);
+            //showTable();
+            System.out.println("playerShip1 -> " + player1Ships);
+            System.out.println("player2Ships -> " + player2Ships);
 
         }
 
@@ -62,10 +63,12 @@ public class Main {
     private static void showTable() {
 
         if (turn%2==0){
+            System.out.println("Tabuleiro do player");
             for (String[] strings : tablePlayer1) {
                 System.out.println(Arrays.toString(strings));
             }
         } else {
+            System.out.println("Tabuleiro do bot");
             for (String[] strings : tablePlayer2) {
                 System.out.println(Arrays.toString(strings));
             }
@@ -73,6 +76,8 @@ public class Main {
     }
 
     private static void placeShips() {
+        System.out.println("turno -> " + turn);
+
         int coordinates[] = new int[2];
         if (turn%2==0){
             player = "Jogador 1";
@@ -82,6 +87,7 @@ public class Main {
             System.out.println("Digite a coluna: ");
             coordinates[1] = scanner.nextInt();
             setPosition(coordinates);
+            showTable();
             if (player1Ships == 10){
                 //showTable();
                 System.out.println("------------------------------------");
@@ -91,6 +97,7 @@ public class Main {
             player = "Jogador 2";
             System.out.println("Vez do "+player);
             setPosition(coordinates);
+            showTable();
             if (player2Ships == 10){
                 //showTable();
                 System.out.println("------------------------------------");
