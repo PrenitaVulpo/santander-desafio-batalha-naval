@@ -51,6 +51,7 @@ public class Main {
 
             placeShips();
             showTable();
+            System.out.println("turno -> " + turn);
 
         }
 
@@ -61,15 +62,13 @@ public class Main {
     private static void showTable() {
 
         if (turn%2==0){
-            for (String[] strings : tablePlayer2) {
-                System.out.println(Arrays.toString(strings));
-            }
-        } else {
-
             for (String[] strings : tablePlayer1) {
                 System.out.println(Arrays.toString(strings));
             }
-
+        } else {
+            for (String[] strings : tablePlayer2) {
+                System.out.println(Arrays.toString(strings));
+            }
         }
     }
 
@@ -83,7 +82,7 @@ public class Main {
             System.out.println("Digite a coluna: ");
             coordinates[1] = scanner.nextInt();
             setPosition(coordinates);
-            if (player1Ships <= 10){
+            if (player1Ships == 10){
                 //showTable();
                 System.out.println("------------------------------------");
                 turn ++;
@@ -92,8 +91,8 @@ public class Main {
             player = "Jogador 2";
             System.out.println("Vez do "+player);
             setPosition(coordinates);
-            if (player2Ships >= 10){
-                showTable();
+            if (player2Ships == 10){
+                //showTable();
                 System.out.println("------------------------------------");
                 turn ++;
 
