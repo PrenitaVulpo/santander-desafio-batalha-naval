@@ -61,13 +61,15 @@ public class Main {
     private static void showTable() {
 
         if (turn%2==0){
-            for (String[] strings : tablePlayer1) {
+            for (String[] strings : tablePlayer2) {
                 System.out.println(Arrays.toString(strings));
             }
         } else {
-            /*for (String[] strings : tablePlayer2) {
+
+            for (String[] strings : tablePlayer1) {
                 System.out.println(Arrays.toString(strings));
-            }*/
+            }
+
         }
     }
 
@@ -163,9 +165,25 @@ public class Main {
             if(turn%2==0){
                 System.out.println("Jogada do Bot");
 
+                int coordinates[] = new int[2];
+                coordinates[0] = generateRandon.nextInt(9);
+                coordinates[1] = generateRandon.nextInt(9);
+                System.out.println("Cordenada do bot -> " + coordinates[0] + ", " + coordinates[1]);
+
+                while(!shoot(coordinates)) {
+
+                    coordinates[0] = generateRandon.nextInt(9);
+                    coordinates[1] = generateRandon.nextInt(9);
+                    System.out.println("Cordenada do bot -> " + coordinates[0] + ", " + coordinates[1]);
+
+                }
+
                 turn ++;
+
             } else {
                 System.out.println("Jogada do Player");
+
+                showTable();
 
                 int coordinates[] = new int[2];
 
@@ -184,6 +202,8 @@ public class Main {
                      coordinates[1] = scanner.nextInt();
 
                  }
+
+                 turn ++;
 
             }
 
