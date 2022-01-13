@@ -51,8 +51,10 @@ public class Main {
 
             placeShips();
             //showTable();
-            System.out.println("playerShip1 -> " + player1Ships);
-            System.out.println("player2Ships -> " + player2Ships);
+
+            if (player1Ships == 10 && player2Ships == 10) {
+                break;
+            }
 
         }
 
@@ -76,7 +78,6 @@ public class Main {
     }
 
     private static void placeShips() {
-        System.out.println("turno -> " + turn);
 
         int coordinates[] = new int[2];
         if (turn%2==0){
@@ -130,20 +131,6 @@ public class Main {
 
         if(turn%2==0){
 
-            if (tablePlayer1[coordinates[0]][coordinates[1]] == " "){
-                //Tiro na agua
-                tablePlayer1[coordinates[0]][coordinates[1]] = "-";
-                System.out.println("O bot deu um tiro na agua!");
-                return true;
-            } else if (tablePlayer1[coordinates[0]][coordinates[1]] == "N"){
-                //Tiro certeiro
-                tablePlayer1[coordinates[0]][coordinates[1]] = "*";
-                System.out.println("Tiro certeiro!");
-                return true;
-            }
-
-        } else {
-
             if (tablePlayer2[coordinates[0]][coordinates[1]] == " "){
                 //Tiro na agua
                 tablePlayer2[coordinates[0]][coordinates[1]] = "-";
@@ -152,6 +139,20 @@ public class Main {
             } else if (tablePlayer2[coordinates[0]][coordinates[1]] == "N"){
                 //Tiro certeiro
                 tablePlayer2[coordinates[0]][coordinates[1]] = "*";
+                System.out.println("Tiro certeiro!");
+                return true;
+            }
+
+        } else {
+
+            if (tablePlayer1[coordinates[0]][coordinates[1]] == " "){
+                //Tiro na agua
+                tablePlayer1[coordinates[0]][coordinates[1]] = "-";
+                System.out.println("O bot deu um tiro na agua!");
+                return true;
+            } else if (tablePlayer1[coordinates[0]][coordinates[1]] == "N"){
+                //Tiro certeiro
+                tablePlayer1[coordinates[0]][coordinates[1]] = "*";
                 System.out.println("Tiro certeiro!");
                 return true;
             }
@@ -169,6 +170,31 @@ public class Main {
         while (Objects.equals(checkWinner(), "")) {
 
             if(turn%2==0){
+                System.out.println("Jogada do Player");
+
+                showTable();
+
+                int coordinates[] = new int[2];
+
+                System.out.println("Digite a linha: ");
+                coordinates[0] = scanner.nextInt();
+                System.out.println("Digite a coluna: ");
+                coordinates[1] = scanner.nextInt();
+
+                while(!shoot(coordinates)) {
+
+                    System.out.println("Você ja realizou um disparo nessa posição! Jogue novamente :)");
+
+                    System.out.println("Digite a linha: ");
+                    coordinates[0] = scanner.nextInt();
+                    System.out.println("Digite a coluna: ");
+                    coordinates[1] = scanner.nextInt();
+
+                }
+
+                turn ++;
+            } else {
+
                 System.out.println("Jogada do Bot");
 
                 int coordinates[] = new int[2];
@@ -185,31 +211,6 @@ public class Main {
                 }
 
                 turn ++;
-
-            } else {
-                System.out.println("Jogada do Player");
-
-                showTable();
-
-                int coordinates[] = new int[2];
-
-                System.out.println("Digite a linha: ");
-                coordinates[0] = scanner.nextInt();
-                System.out.println("Digite a coluna: ");
-                coordinates[1] = scanner.nextInt();
-
-                 while(!shoot(coordinates)) {
-
-                     System.out.println("Você ja realizou um disparo nessa posição! Jogue novamente :)");
-
-                     System.out.println("Digite a linha: ");
-                     coordinates[0] = scanner.nextInt();
-                     System.out.println("Digite a coluna: ");
-                     coordinates[1] = scanner.nextInt();
-
-                 }
-
-                 turn ++;
 
             }
 
