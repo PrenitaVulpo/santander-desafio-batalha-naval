@@ -42,7 +42,7 @@ public class Main {
             {"| J |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"}};
     private static int turn = 2;
     private static String player = "";
-    private static int player1Ships = 8;
+    private static int player1Ships = 0;
     private static int player2Ships = 0;
     static Random generateRandon = new Random();
     private static Scanner scanner = new Scanner(System.in);
