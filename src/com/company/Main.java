@@ -118,11 +118,21 @@ public class Main {
         }
     }
 
-    public static void shoot(int[] coordinates) {
+    public static boolean shoot(int[] coordinates) {
 
         if(turn%2==0){
 
-            //Jogada do BOT
+            if (tablePlayer1[coordinates[0]][coordinates[1]] == " "){
+                //Tiro na agua
+                tablePlayer1[coordinates[0]][coordinates[1]] = "-";
+                System.out.println("O bot deu um tiro na agua!");
+                return true;
+            } else if (tablePlayer1[coordinates[0]][coordinates[1]] == "N"){
+                //Tiro certeiro
+                tablePlayer1[coordinates[0]][coordinates[1]] = "*";
+                System.out.println("Tiro certeiro!");
+                return true;
+            }
 
         } else {
 
@@ -130,16 +140,17 @@ public class Main {
                 //Tiro na agua
                 tablePlayer2[coordinates[0]][coordinates[1]] = "-";
                 System.out.println("Tiro na agua!");
-            }else if (tablePlayer2[coordinates[0]][coordinates[1]] == "-"  || tablePlayer2[coordinates[0]][coordinates[1]] == "*"){
-                //Tiro em local onde já houve tiro
-                System.out.println("Você já realizou um disparo nesta posição");
+                return true;
             } else if (tablePlayer2[coordinates[0]][coordinates[1]] == "N"){
                 //Tiro certeiro
                 tablePlayer2[coordinates[0]][coordinates[1]] = "*";
                 System.out.println("Tiro certeiro!");
+                return true;
             }
 
         }
+
+        return false;
 
     }
 
@@ -163,7 +174,16 @@ public class Main {
                 System.out.println("Digite a coluna: ");
                 coordinates[1] = scanner.nextInt();
 
-                shoot(coordinates);
+                 while(!shoot(coordinates)) {
+
+                     System.out.println("Você ja realizou um disparo nessa posição! Jogue novamente :)");
+
+                     System.out.println("Digite a linha: ");
+                     coordinates[0] = scanner.nextInt();
+                     System.out.println("Digite a coluna: ");
+                     coordinates[1] = scanner.nextInt();
+
+                 }
 
             }
 
