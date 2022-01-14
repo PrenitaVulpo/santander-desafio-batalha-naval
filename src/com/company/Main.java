@@ -1,22 +1,16 @@
 package com.company;
 
-//A fazer
-
-//Função para distribuir os submarinos nas tabelas de cada jogador
-//Função de entrada de cada jogador
-//Exibir o mapa  de tiros além do mapa próprio dos submarinos do jogador
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.ArrayList;
 
 
 public class Main {
 
-    private static final String[][] gridTitle = {             {"----------------------------------------------------------------------------"},             {"                                 JOGADOR                                    "},             {"----------------------------------------------------------------------------"}};
-    private static String[][] tablePlayer1 = {
+
+    private static final String[][] tablePlayer1 = {
             {"|   |","| 0 |","| 1 |","| 2 |","| 3 |","| 4 |","| 5 |","| 6 |","| 7 |","| 8 |","| 9 |"},
             {"| A |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| B |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
@@ -28,7 +22,8 @@ public class Main {
             {"| H |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| I |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| J |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"}};
-    private static String[][] tablePlayer2 = {
+
+    private static final String[][] tablePlayer2 = {
             {"|   |","| 0 |","| 1 |","| 2 |","| 3 |","| 4 |","| 5 |","| 6 |","| 7 |","| 8 |","| 9 |"},
             {"| A |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| B |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
@@ -40,6 +35,12 @@ public class Main {
             {"| H |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| I |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| J |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"}};
+
+    private static String tablePlayer1ASCII =
+            "-------------------------------------------------------\n" +
+            "                        JOGADOR                        \n" +
+            "-------------------------------------------------------\n";
+
     private static int turn = 2;
     private static String playerName = "";
     private static int player1Ships = 0;
@@ -52,7 +53,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("|                       Bem vindo a Batalha Naval ☠️                     |");
+        System.out.println("|                       Bem vindo à Batalha Naval ☠️                     |");
         System.out.println("----------------------------------------------------------------------------");
 
         System.out.println("Qual é o seu nome: ");
@@ -70,7 +71,6 @@ public class Main {
         while (player1Ships <= 10 && player2Ships <= 10) {
 
             placeShips();
-            //showTable();
 
             if (player1Ships == 10 && player2Ships == 10) {
                 break;
@@ -81,15 +81,35 @@ public class Main {
         startCombat();
     }
 
+    private static void buildASCII(String[][] table){
+        StringBuilder tempString = new StringBuilder();
+
+        for (String[] strings : table) {
+            for (int i= 0; i < strings.length; i++) {
+                if (!Objects.equals(strings[i], ",")) {
+                    tempString.append(strings[i]);
+                }
+            }
+
+            tablePlayer1ASCII = tablePlayer1ASCII + tempString + "\n";
+
+            tempString = new StringBuilder("");
+        }
+    }
+
+    private static void resetASCII(){
+        tablePlayer1ASCII =
+                "-------------------------------------------------------\n" +
+                "                        JOGADOR                        \n" +
+                "-------------------------------------------------------\n";
+    }
+
     private static void showTable() {
 
         if (turn%2==0){
-            for (String[] title: gridTitle){
-                System.out.println(Arrays.toString(title));
-            }
-            for (String[] strings : tablePlayer1) {
-                System.out.println(Arrays.toString(strings));
-            }
+            buildASCII(tablePlayer1);
+            System.out.println(tablePlayer1ASCII);
+            resetASCII();
         } else {
             for (String[] strings : tablePlayer2) {
                 System.out.println(Arrays.toString(strings));
@@ -224,13 +244,11 @@ public class Main {
                 int coordinates[] = new int[2];
                 coordinates[0] = generateRandon.nextInt(9); //Para testar é só reduzir o range do bot
                 coordinates[1] = generateRandon.nextInt(9);//Para testar é só reduzir o range do bot
-                //System.out.println("Cordenada do bot -> " + coordinates[0] + ", " + coordinates[1]);
 
                 while(!shoot(coordinates)) {
 
                     coordinates[0] = generateRandon.nextInt(9);
                     coordinates[1] = generateRandon.nextInt(9);
-                    //System.out.println("Cordenada do bot -> " + coordinates[0] + ", " + coordinates[1]);
 
                 }
 
