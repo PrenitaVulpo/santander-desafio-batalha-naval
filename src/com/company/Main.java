@@ -141,7 +141,7 @@ public class Main {
                 System.out.println("entrada inválida");
                 placeShips();
             }
-            coordinates[0] = Arrays.asList(letterArray).indexOf(line) +1;
+            coordinates[0] = Arrays.asList(letterArray).indexOf(line) + 1;
             System.out.print("Digite um número de '0' a '9': ");
             String input = scanner.next() ;
             if (!isNumeric(input)){
@@ -149,7 +149,7 @@ public class Main {
                 placeShips();
             }
             if(Integer.parseInt(input) + 1 < 11 && Integer.parseInt(input) + 1 > 0){
-                coordinates[1] = Integer.parseInt(input);
+                coordinates[1] = Integer.parseInt(input) + 1;
             }
             setPosition(coordinates);
             showTable();
@@ -230,7 +230,7 @@ public class Main {
 
     public static void startCombat() {
         System.out.println("----------------------------------------------------------------------------");
-        System.out.println("|                        COMBATE COMEÇÕU  ☠️                             |");
+        System.out.println("|                        COMBATE COMEÇOU  ☠️                             |");
         System.out.println("----------------------------------------------------------------------------");
         String line;
         while (Objects.equals(checkWinner(), "")) {
