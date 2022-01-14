@@ -41,7 +41,7 @@ public class Main {
             {"| I |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"},
             {"| J |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |","|   |"}};
     private static int turn = 2;
-    private static String player = "";
+    private static String playerName = "";
     private static int player1Ships = 0;
     private static int player2Ships = 0;
     static Random generateRandon = new Random();
@@ -54,10 +54,9 @@ public class Main {
         System.out.println("----------------------------------------------------------------------------");
         System.out.println("|                       Bem vindo a Batalha Naval ☠️                     |");
         System.out.println("----------------------------------------------------------------------------");
-        if (turn == 2){
-            showTable();
-        }
-        //inserir scanner para nome do usuario
+
+        System.out.println("Qual é o seu nome: ");
+        playerName = scanner.nextLine();
 
         startGame();
 
@@ -102,8 +101,7 @@ public class Main {
         String line = "";
         int coordinates[] = new int[2];
         if (turn%2==0){
-            player = "Jogador 1";
-            System.out.println("Vez do "+player);
+            System.out.println("Vez de "+playerName);
             System.out.println("Digite uma letra de 'A' a 'J': ");
             line = scanner.next().toUpperCase();
             coordinates[0] = Arrays.asList(letterArray).indexOf(line) +1;
@@ -117,8 +115,7 @@ public class Main {
                 turn ++;
             }
         } else {
-            player = "Jogador 2";
-            System.out.println("Vez do "+player);
+            System.out.println("Vez do Bot");
             setPosition(coordinates);
             showTable();
             if (player2Ships == 10){
@@ -195,7 +192,7 @@ public class Main {
         while (Objects.equals(checkWinner(), "")) {
 
             if(turn%2==0){
-                System.out.println("Jogada do Player");
+                System.out.println("Jogada de "+playerName);
 
                 showTable();
 
@@ -253,7 +250,7 @@ public class Main {
         }
 
         if (player2Ships == 0 && turn > 4) {
-            return "Jogador 1";
+            return playerName;
         }
 
         return "";
