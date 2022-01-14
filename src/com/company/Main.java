@@ -118,6 +118,18 @@ public class Main {
         }
     }
 
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
     private static void placeShips() {
         String line;
         int[] coordinates = new int[2];
@@ -131,10 +143,13 @@ public class Main {
             }
             coordinates[0] = Arrays.asList(letterArray).indexOf(line) +1;
             System.out.print("Digite um número de '0' a '9': ");
-            coordinates[1] = scanner.nextInt() + 1 ;
-            if (!(coordinates[1] < 10 && coordinates[1] > 0)){
-                System.out.println("entrada inválida");
+            String input = scanner.next() ;
+            if (!isNumeric(input)){
+                System.out.println("entrada inválida, informe um número");
                 placeShips();
+            }
+            if(Integer.parseInt(input) + 1 < 11 && Integer.parseInt(input) + 1 > 0){
+                coordinates[1] = Integer.parseInt(input);
             }
             setPosition(coordinates);
             showTable();
