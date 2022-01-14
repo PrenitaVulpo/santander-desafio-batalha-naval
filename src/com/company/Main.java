@@ -69,17 +69,17 @@ public class Main {
 
         System.out.println("- Inicialmente, iremos posicionar as embarações -");
 
-        while (player1Ships <= 10 && player2Ships <= 10) {
+        while (player1Ships <= 1 && player2Ships <= 1) {
 
             placeShips();
 
-            if (player1Ships == 10 && player2Ships == 10) {
+            if (player1Ships == 1 && player2Ships == 1) {
                 break;
             }
 
         }
+            startCombat();
 
-        startCombat();
     }
 
     private static void buildASCII(String[][] table){
@@ -176,6 +176,7 @@ public class Main {
             if (Objects.equals(tablePlayer1[coordinates[0]][coordinates[1]], "|   |")){
                 tablePlayer1[coordinates[0]][coordinates[1]] = "| N |";
                 player1Ships++;
+                turn++;
             }else {
                 System.out.println("Esta posição esta ocupada");
             }
@@ -187,6 +188,7 @@ public class Main {
             System.out.println(b);
             tablePlayer2[a][b] = "| N |";
             player2Ships++;
+            turn++;
         }
     }
 
@@ -265,31 +267,32 @@ public class Main {
                 System.out.println("Jogada do Bot");
 
                 int[] coordinates = new int[2];
-                coordinates[0] = generateRandon.nextInt(9); //Para testar é só reduzir o range do bot
-                coordinates[1] = generateRandon.nextInt(9);//Para testar é só reduzir o range do bot
+                coordinates[0] = generateRandon.nextInt(2) ; //Para testar é só reduzir o range do bot
+                coordinates[1] = generateRandon.nextInt(2) ;//Para testar é só reduzir o range do bot
 
                 while(!shoot(coordinates)) {
 
-                    coordinates[0] = generateRandon.nextInt(9);
-                    coordinates[1] = generateRandon.nextInt(9);
+                    coordinates[0] = generateRandon.nextInt(2);
+                    coordinates[1] = generateRandon.nextInt(2);
 
                 }
 
             }
             turn ++;
-
+            System.out.println("navios do bot: "+player2Ships);
         }
 
         System.out.println("O vencedor é o(a): "+checkWinner());
 
+
     }
 
     private static String checkWinner(){
-        if (player1Ships == 0 && turn > 4) {
+        if (player1Ships == 0 ) {
             return "Bot";
         }
 
-        if (player2Ships == 0 && turn > 4) {
+        if (player2Ships == 0) {
             return playerName;
         }
 
