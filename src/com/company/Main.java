@@ -46,7 +46,7 @@ public class Main {
     private static int player1Ships = 0;
     private static int player2Ships = 0;
     static Random generateRandon = new Random();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
     private static final String[] letterArray = {"A", "B", "C", "D" , "E", "F", "G", "H", "I", "J"};
 
 
@@ -85,15 +85,15 @@ public class Main {
         StringBuilder tempString = new StringBuilder();
 
         for (String[] strings : table) {
-            for (int i= 0; i < strings.length; i++) {
-                if (!Objects.equals(strings[i], ",")) {
-                    tempString.append(strings[i]);
+            for (String string : strings) {
+                if (!Objects.equals(string, ",")) {
+                    tempString.append(string);
                 }
             }
 
             tablePlayer1ASCII = tablePlayer1ASCII + tempString + "\n";
 
-            tempString = new StringBuilder("");
+            tempString = new StringBuilder();
         }
     }
 
@@ -118,8 +118,8 @@ public class Main {
     }
 
     private static void placeShips() {
-        String line = "";
-        int coordinates[] = new int[2];
+        String line;
+        int[] coordinates = new int[2];
         if (turn%2==0){
             System.out.println("Vez de "+playerName);
             System.out.println("Digite uma letra de 'A' a 'J': ");
@@ -149,7 +149,7 @@ public class Main {
 
     public static void setPosition(int[] coordinates){
         if(turn%2==0){
-            if (tablePlayer1[coordinates[0]][coordinates[1]] == "|   |"){
+            if (Objects.equals(tablePlayer1[coordinates[0]][coordinates[1]], "|   |")){
                 tablePlayer1[coordinates[0]][coordinates[1]] = "| N |";
                 player1Ships++;
             }else {
@@ -170,12 +170,12 @@ public class Main {
 
         if(turn%2==0){
 
-            if (tablePlayer2[coordinates[0]][coordinates[1]] == "|   |"){
+            if (Objects.equals(tablePlayer2[coordinates[0]][coordinates[1]], "|   |")){
                 //Tiro na agua
                 tablePlayer2[coordinates[0]][coordinates[1]] = "| - |";
                 System.out.println("Tiro na agua!");
                 return true;
-            } else if (tablePlayer2[coordinates[0]][coordinates[1]] == "| N |"){
+            } else if (Objects.equals(tablePlayer2[coordinates[0]][coordinates[1]], "| N |")){
                 //Tiro certeiro
                 tablePlayer2[coordinates[0]][coordinates[1]] = "| * |";
                 System.out.println("Tiro certeiro!");
@@ -185,12 +185,12 @@ public class Main {
 
         } else {
 
-            if (tablePlayer1[coordinates[0]][coordinates[1]] == "|   |"){
+            if (Objects.equals(tablePlayer1[coordinates[0]][coordinates[1]], "|   |")){
                 //Tiro na agua
                 tablePlayer1[coordinates[0]][coordinates[1]] = "| - |";
                 System.out.println("O bot deu um tiro na agua!");
                 return true;
-            } else if (tablePlayer1[coordinates[0]][coordinates[1]] == "| N |"){
+            } else if (Objects.equals(tablePlayer1[coordinates[0]][coordinates[1]], "| N |")){
                 //Tiro certeiro
                 tablePlayer1[coordinates[0]][coordinates[1]] = "| * |";
                 System.out.println("Tiro certeiro!");
@@ -208,7 +208,7 @@ public class Main {
         System.out.println("----------------------------------------------------------------------------");
         System.out.println("|                        COMBATE COMEÇÕU  ☠️                             |");
         System.out.println("----------------------------------------------------------------------------");
-        String line = "";
+        String line;
         while (Objects.equals(checkWinner(), "")) {
 
             if(turn%2==0){
@@ -216,7 +216,7 @@ public class Main {
 
                 showTable();
 
-                int coordinates[] = new int[2];
+                int[] coordinates= new int[2];
 
                 System.out.println("Digite uma letra de 'A' a 'J': ");
                 line = scanner.next().toUpperCase();
@@ -236,12 +236,11 @@ public class Main {
 
                 }
 
-                turn ++;
             } else {
 
                 System.out.println("Jogada do Bot");
 
-                int coordinates[] = new int[2];
+                int[] coordinates = new int[2];
                 coordinates[0] = generateRandon.nextInt(9); //Para testar é só reduzir o range do bot
                 coordinates[1] = generateRandon.nextInt(9);//Para testar é só reduzir o range do bot
 
@@ -252,9 +251,8 @@ public class Main {
 
                 }
 
-                turn ++;
-
             }
+            turn ++;
 
         }
 
