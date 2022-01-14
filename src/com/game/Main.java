@@ -1,4 +1,4 @@
-package com.company;
+package com.game;
 
 
 import java.util.Arrays;
@@ -184,8 +184,8 @@ public class Main {
         }else {
             int a = generateRandon.nextInt(9);
             int b = generateRandon.nextInt(9);
-            System.out.println(a);
-            System.out.println(b);
+//            System.out.println(a);
+//            System.out.println(b);
             tablePlayer2[a][b] = "| N |";
             player2Ships++;
             turn++;
