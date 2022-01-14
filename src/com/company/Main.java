@@ -9,6 +9,7 @@ import java.util.Scanner;
 
 public class Main {
 
+    private static final String[] letters = {"A","B","C","D","E","F","G","H","I","J"};
 
     private static final String[][] tablePlayer1 = {
             {"|   |","| 0 |","| 1 |","| 2 |","| 3 |","| 4 |","| 5 |","| 6 |","| 7 |","| 8 |","| 9 |"},
@@ -56,7 +57,7 @@ public class Main {
         System.out.println("|                       Bem vindo à Batalha Naval ☠️                     |");
         System.out.println("----------------------------------------------------------------------------");
 
-        System.out.println("Qual é o seu nome: ");
+        System.out.print("informe o seu nome: ");
         playerName = scanner.nextLine();
 
         startGame();
@@ -122,11 +123,19 @@ public class Main {
         int[] coordinates = new int[2];
         if (turn%2==0){
             System.out.println("Vez de "+playerName);
-            System.out.println("Digite uma letra de 'A' a 'J': ");
+            System.out.print("Digite uma letra de 'A' a 'J': ");
             line = scanner.next().toUpperCase();
+            if (!Arrays.asList(letters).contains(line)){
+                System.out.println("entrada inválida");
+                placeShips();
+            }
             coordinates[0] = Arrays.asList(letterArray).indexOf(line) +1;
-            System.out.println("Digite um numero de '0' a '9': ");
+            System.out.print("Digite um número de '0' a '9': ");
             coordinates[1] = scanner.nextInt() + 1 ;
+            if (!(coordinates[1] < 10 && coordinates[1] > 0)){
+                System.out.println("entrada inválida");
+                placeShips();
+            }
             setPosition(coordinates);
             showTable();
             if (player1Ships == 10){
